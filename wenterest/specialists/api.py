@@ -5,8 +5,16 @@ from .serializers import SpecialistsSerializer
 # Specialist Viewset: allows us to create a CRUD API with specifying explicit methods for the functionality, like ruby on rails
 
 class SpecialistsViewSet(viewsets.ModelViewSet):
-    queryset = Specialists.objects.all()
     permission_classes = [
-        permissions.AllowAny
+        permissions.IsAuthenticated
     ]
+
     serializer_class = SpecialistsSerializer
+
+    def get_queryset(self):
+        return self.request.user.specialists.all()
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+    

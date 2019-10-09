@@ -16,10 +16,13 @@ export class Alerts extends Component {
             if (error.msg.domain) alert.error(`Domain: ${error.msg.domain.join()}`);
             if (error.msg.email) alert.error(`Email: ${error.msg.email.join()}`);
             if (error.msg.profile_link) alert.error(`Profile link: ${error.msg.profile_link.join()}`);
+            if (error.msg.username) alert.error(error.msg.username.join());
+            if (error.msg.non_field_erros) alert.error(error.msg.non_field_erros.join());
         }
         if (message !== prevProps.message) {
             if (message.specialistDeleted) alert.success(message.specialistDeleted)
             if (message.specialistAdded) alert.success(message.specialistAdded)
+            if (message.passwordNotMatch) alert.error(message.passwordNotMatch)
         }
     }
     render() {
